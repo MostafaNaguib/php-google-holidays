@@ -76,11 +76,11 @@ class Holidays
     /**
      * Setting end date.
      *
-     * @param string Date in any format
+     * @param string $str $str Date in any format
      *
      * @return self
      */
-    public function to($str)
+    public function to($str): Holidays
     {
         $this->end_date = date('Y-m-d', strtotime($str)) . 'T00:00:00-00:00';
 
@@ -90,9 +90,10 @@ class Holidays
     /**
      * Setter of API key.
      *
-     * @return void
+     * @param $api_key
+     * @return Holidays
      */
-    public function withApiKey($api_key)
+    public function withApiKey($api_key): Holidays
     {
         $this->api_key = $api_key;
 
@@ -102,9 +103,10 @@ class Holidays
     /**
      * Define the country code to retrieve holidays for.
      *
-     * @return void
+     * @param $country_code
+     * @return Holidays
      */
-    public function inCountry($country_code)
+    public function inCountry($country_code): Holidays
     {
         $this->country_code = strtolower($country_code);
 
@@ -116,7 +118,7 @@ class Holidays
      *
      * @return Holidays
      */
-    public function withMinimalOutput()
+    public function withMinimalOutput(): Holidays
     {
         $this->minimal = true;
 
@@ -128,7 +130,7 @@ class Holidays
      *
      * @return Holidays
      */
-    public function withDatesOnly()
+    public function withDatesOnly(): Holidays
     {
         $this->dates_only = true;
 
@@ -143,11 +145,11 @@ class Holidays
     public function list()
     {
         if (!$this->api_key) {
-            throw new \Exception('Providing an API key might be a better start. RTFM.');
+            throw new \RuntimeException('Providing an API key might be a better start. RTFM.');
         }
 
         if (!$this->country_code) {
-            throw new \Exception('Providing a Country Code is a good idea. RTFM.');
+            throw new \RuntimeException('Providing a Country Code is a good idea. RTFM.');
         }
 
         $result = [];
